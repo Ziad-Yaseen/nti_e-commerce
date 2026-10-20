@@ -1,64 +1,42 @@
 import 'package:nti_e_commerce/data/models/product.dart';
 
-List<Product> iTEMS = [
-  Product(
-    id: "1",
-    name: "PC",
-    imageUrl: "images/pc.png",
-    price: 12000,
-    category: "Electric",
-    stock: 12,
-    des: "A product description is a description of what a deliverable is. It’s created before the product is created and used to direct the work. It’s also used to evaluate the created product and make sure it matches expectations.Product descriptions should be created for all planned products as part of the planning activities, ideally before finalising the project plan. However, defining every product description during the initiation stage is not always feasible. In such cases, additional or updated product descriptions may be produced during the managing a stage boundary process.",
-    rating: 4.2,
-  ),
-  Product(
-    id: "2",
-    name: "Laptop",
-    imageUrl: "images/labtop.png",
-    price: 30000,
-    category: "Electric",
-    stock: 20,
-    des: "A product description is a description of what a deliverable is. It’s created before the product is created and used to direct the work. It’s also used to evaluate the created product and make sure it matches expectations.Product descriptions should be created for all planned products as part of the planning activities, ideally before finalising the project plan. However, defining every product description during the initiation stage is not always feasible. In such cases, additional or updated product descriptions may be produced during the managing a stage boundary process.",
-    rating: 4.5,
-  ),
-  Product(
-    id: "3",
-    name: "fRIDGE",
-    imageUrl: "images/fridge.png",
-    price: 30000,
-    category: "Electric",
-    stock: 20,
-    des: "MAC",
-    rating: 4.5,
-  ),
-  Product(
-    id: "2",
-    name: "Laptop",
-    imageUrl: "images/headphone.jpeg",
-    price: 30000,
-    category: "Electric",
-    stock: 20,
-    des: "MAC",
-    rating: 4.5,
-  ),
-  Product(
-    id: "2",
-    name: "Laptop",
-    imageUrl: "images/labtop.png",
-    price: 30000,
-    category: "Electric",
-    stock: 20,
-    des: "MAC",
-    rating: 4.5,
-  ),
-  Product(
-    id: "2",
-    name: "Laptop",
-    imageUrl: "images/headphone.jpeg",
-    price: 30000,
-    category: "Electric",
-    stock: 20,
-    des: "MAC",
-    rating: 4.5,
-  ),
-];
+List<Product> items = _generateProducts();
+
+List<Product> _generateProducts() {
+  List<Product> generatedItems = [];
+  int idCounter = 1;
+
+  final Map<String, Map<String, dynamic>> categoriesInfo = {
+    'f': {'name': 'Fridge', 'count': 1, 'category': 'Home Appliances'},
+    'h': {'name': 'Headphone', 'count': 3, 'category': 'Accessories'},
+    'l': {'name': 'Laptop', 'count': 4, 'category': 'Computers'},
+    'lm': {'name': 'Mac Laptop', 'count': 3, 'category': 'Computers'},
+    'p': {'name': 'Phone', 'count': 5, 'category': 'Mobiles'},
+    'pc': {'name': 'PC', 'count': 7, 'category': 'Computers'},
+  };
+
+  categoriesInfo.forEach((prefix, info) {
+    int count = info['count'];
+    String baseName = info['name'];
+    String categoryName = info['category'];
+
+    for (int i = 1; i <= count; i++) {
+      generatedItems.add(
+        Product(
+          id: idCounter,
+          name: '$baseName $i',
+          imageUrl: 'assets/images/$prefix$i.png',
+          price: 1000.0 + (i * 250),
+          stock: i * 5,
+          des:
+              'A detailed description for $baseName number $i, featuring high quality and excellent performance.',
+          rating: 4.0 + (i % 10) * 0.1,
+          category: categoryName,
+        ),
+      );
+      idCounter++;
+    }
+  });
+
+  return generatedItems;
+}
