@@ -15,6 +15,7 @@ class HomeView extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.separated(
+              physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(8),
               itemCount: items.length,
               separatorBuilder: (context, index) => SizedBox(height: 8),
